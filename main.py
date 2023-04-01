@@ -1,5 +1,19 @@
 import math
 from chars import *
+import sys
+import os
+
+def scanFileORDirectory(path):
+    # path_of_the_directory= "C:\\Users\UROS\Documents\project-builder\CBuilder\C\izdvojeni'
+    print("\nFilename: uniqOprts uniqOprnds totalOprts totalOprnds  Length  Vocab  Volume  Diff Effort Time Bug  ccCount\n")
+    if (os.path.isfile(path)):
+        manageFile(path)
+    else:
+        for filename in os.listdir(path):
+            f = os.path.join(path,filename)
+            if os.path.isfile(f):
+                print(filename+":  ", end = '')
+                manageFile(path+"\\"+filename)
 
 def manageFile(filepath):
     file = open(filepath, 'r')
@@ -87,6 +101,23 @@ def manageFile(filepath):
     results = {'n1': smallN1, 'N1': capitalN1, 'n2': smallN2, 'N2':capitalN2, 'progLength': progLength, 'progVocab':progVocab,
                 'estimatedLength': estimatedLength, 'purityRatio': purityRatio, 'volume': volume, 'difficulty': difficulty,
                 'progEffort': progEffort, 'progTime': progTime, 'deliveredBug': deliveredBug, 'codeBox': codeBox, 'ccCount': ccCount}
-    
+
     file.close()
+
+    print(str(smallN1)+
+             ' '+str(smallN2)+
+             ' '+str(capitalN1)+
+             ' '+str(capitalN2)+
+             ' '+str(progLength)+
+             ' '+str(progVocab),
+             ' '+str("{:.2f}".format(volume))+
+             ' '+str("{:.2f}".format(difficulty))+
+             ' '+str("{:.2f}".format(progEffort))+
+             ' '+str("{:.2f}".format(progTime))+
+             ' '+str("{:.2f}".format(deliveredBug))+
+             ' '+str(ccCount))
+
     return results
+
+if __name__ == '__main__':
+    globals()[sys.argv[1]](sys.argv[2])
